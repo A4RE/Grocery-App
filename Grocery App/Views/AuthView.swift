@@ -47,7 +47,7 @@ private extension AuthView {
                 )
                 .frame(
                     width: size.width,
-                    height: size.height * (!isLoginState && !isSignupState ? 0.399 : isLoginState ? 0.505 : 0.52)
+                    height: size.height * (!isLoginState && !isSignupState ? 0.399 : isLoginState ? 0.505 : 0.525)
                 )
             createContext(size: size)
         }
@@ -64,6 +64,7 @@ private extension AuthView {
                 .font(Font.Poppins.Medium15)
                 .multilineTextAlignment(.leading)
                 .foregroundStyle(Color(hex: "868889"))
+                .padding(.top, 8)
             if !isLoginState && !isSignupState {
                 ZStack {
                     RoundedRectangle(cornerRadius: 5)
@@ -115,8 +116,10 @@ private extension AuthView {
                 .padding(.bottom, 20)
                 .padding(.top, 12)
                 .onTapGesture {
-                    isSignupState = true
-                    isLoginState = false
+                    withAnimation {
+                        isSignupState = true
+                        isLoginState = false
+                    }
                 }
             }
             
@@ -190,15 +193,17 @@ private extension AuthView {
                     .font(Font.Poppins.Medium15)
                     .foregroundStyle(Color(hex: "000000"))
                     .onTapGesture {
-                        if !isLoginState && !isSignupState {
-                            isLoginState = true
-                            isSignupState = false
-                        } else if isLoginState {
-                            isSignupState = true
-                            isLoginState = false
-                        } else if isSignupState {
-                            isLoginState = true
-                            isSignupState = false
+                        withAnimation {
+                            if !isLoginState && !isSignupState {
+                                isLoginState = true
+                                isSignupState = false
+                            } else if isLoginState {
+                                isSignupState = true
+                                isLoginState = false
+                            } else if isSignupState {
+                                isLoginState = true
+                                isSignupState = false
+                            }
                         }
                     }
             }
@@ -206,7 +211,7 @@ private extension AuthView {
         }
         .padding(.horizontal, 16)
         .padding(.top, (!isLoginState && !isSignupState ? 31 : isLoginState ? 30 : 29))
-        .padding(.bottom, (!isLoginState && !isSignupState ? 39 : isLoginState ? 34 : 22))
+        .padding(.bottom, (!isLoginState && !isSignupState ? 30 : isLoginState ? 29 : 20))
     }
 }
 
